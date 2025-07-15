@@ -1,6 +1,6 @@
 export function renderForm() {
   const formContainer = document.createElement('div');
-formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-[500px] h-auto mx-auto';
+  formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-[500px] h-auto mx-auto';
 
   formContainer.innerHTML = `
     <h2 class="text-[28px] font-semibold mb-6 text-[#2C2A29] leading-none">Đăng ký</h2>
@@ -23,10 +23,11 @@ formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-
       <button type="submit" class="w-full bg-[#FFA21A] hover:bg-[#e69316] text-black font-semibold py-3 rounded-md">
         Tiếp theo
       </button>
-      <p class="text-center text-sm text-[#4B4B4B] mt-2">
-        Bạn đã có tài khoản? 
-        <a href="#" class="text-blue-600 font-medium hover:underline">Đăng nhập</a>
-      </p>
+      <p class="text-center text-sm text-[#3F3E3C] mt-2">
+  Bạn đã có tài khoản? 
+  <a href="#" class="text-[#1A77FF] font-semibold hover:underline">Đăng nhập</a>
+</p>
+
     </form>
   `;
 
@@ -43,9 +44,8 @@ formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-
 
       let isValid = true;
 
-      // Validate số điện thoại (Việt Nam: bắt đầu bằng 0, 10 số)
       const phone = phoneInput.value.trim();
-      const phoneRegex = /^0\\d{9}$/;
+      const phoneRegex = /^0\d{9}$/;
       if (!phoneRegex.test(phone)) {
         phoneError.classList.remove('hidden');
         isValid = false;
@@ -53,7 +53,6 @@ formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-
         phoneError.classList.add('hidden');
       }
 
-      // Validate mật khẩu >= 6 ký tự
       const password = passwordInput.value.trim();
       if (password.length < 6) {
         passwordError.classList.remove('hidden');
@@ -63,12 +62,19 @@ formContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-
       }
 
       if (isValid) {
-        // Gửi dữ liệu nếu hợp lệ
         console.log('Form is valid. Gửi dữ liệu:', { phone, password });
-        // Bạn có thể thay bằng: fetch/postData(...) nếu cần gửi về server
+
+        //Chỉ thay thế form bên trong wrapper, không thay `main.innerHTML`
+        const formWrapper = document.querySelector('main .flex.justify-center.items-center');
+        formWrapper.innerHTML = ''; // Xoá form đăng ký
+        import('./otpForm.js').then(module => {
+          formWrapper.appendChild(module.renderOTPForm()); // Gắn form OTP vào đúng wrapper
+        });
       }
+
     });
   }, 0);
+
 
   return formContainer;
 }
