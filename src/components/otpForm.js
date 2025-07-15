@@ -1,3 +1,5 @@
+import { renderSuccessForm } from "./successForm";
+
 export function renderOTPForm() {
   const otpContainer = document.createElement('div');
   otpContainer.className = 'bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-[500px] h-auto mx-auto';
@@ -87,7 +89,12 @@ export function renderOTPForm() {
         otpInput.classList.add('border-transparent');
         errorMsg.classList.add('hidden');
         console.log('✅ OTP hợp lệ:', otp);
-        // Thực hiện tiếp: điều hướng hoặc gọi API
+        // Chuyển hướng sang successForm
+        const contentWrapper = document.querySelector('#form-content');
+        if (contentWrapper) {
+          contentWrapper.innerHTML = ''; // Xóa form cũ
+          contentWrapper.appendChild(renderSuccessForm()); // Thêm successForm
+        }
       }
     });
 
