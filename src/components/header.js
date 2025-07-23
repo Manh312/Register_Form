@@ -3,9 +3,9 @@ export function renderHeader() {
   header.className = 'bg-white w-full shadow px-4';
 
   header.innerHTML = `
-    <div class="w-full max-w-[1280px] mx-auto flex items-center justify-start py-4 px-4">
+    <div class="w-full max-w-[1280px] mx-auto flex items-center justify-start py-4 px-4 mr-100">
       <!-- Logo -->
-      <img src="/src/assets/icon.jpg" alt="ComacPro Logo" class="h-[34px] w-auto">
+      <img src="/src/assets/icon.jpg" alt="ComacPro Logo" class="h-[34px] w-[200px] object-contain">
 
       <!-- Hamburger button (ẩn trên desktop) -->
       <button id="menu-toggle" class="md:hidden ml-auto text-black focus:outline-none">
